@@ -1,18 +1,11 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  AppRegistry,
+  View,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+ } from 'react-native';
 
-export default class HN extends Component {
+export default class App extends React.Component<{}, {}> {
   render() {
     return (
       <View style={styles.container}>
@@ -20,11 +13,11 @@ export default class HN extends Component {
           Welcome to React Native!
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.android.js
+          To get started, edit index.js
         </Text>
         <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
+          Press Cmd+R to reload,{'\n'}
+          Cmd+D or shake for dev menu
         </Text>
       </View>
     );
@@ -49,5 +42,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
-AppRegistry.registerComponent('HN', () => HN);
