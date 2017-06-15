@@ -8,6 +8,7 @@
 ```sh
 $ npm install -g typescript
 $ npm install -g react-native-cli
+$ yarn
 ```
 
 ## Build
