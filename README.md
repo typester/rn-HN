@@ -22,7 +22,7 @@ or
 $ tsc -w
 ```
 
-Latter is watch ts sources and compile it automatically. Useful in development.
+Latter is watching ts sources and compile it automatically. Useful in development.
 
 ## Run
 
