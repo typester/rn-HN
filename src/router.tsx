@@ -3,14 +3,22 @@ import { StackNavigator, TabNavigator, TabBarBottom, addNavigationHelpers, Navig
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import {AppState} from './store/configureStore';
+import {RootState} from './reducers';
 import TopStoriesScreen from './screens/TopStoriesScreen';
+import BestStoriesScreen from './screens/BestStoriesScreen';
+import NewStoriesScreen from './screens/NewStoriesScreen';
 
 export const MainTabStack = StackNavigator({
   MainTab: {
     screen: TabNavigator({
       Top: {
         screen: TopStoriesScreen,
+      },
+      Best: {
+        screen: BestStoriesScreen,
+      },
+      New: {
+        screen: NewStoriesScreen,
       },
     }, {
       tabBarComponent: TabBarBottom,
@@ -54,7 +62,7 @@ class Router extends React.Component<RouterStateProps & RouterDispatchProps & Ro
   }
 }
 
-const mapStateToProps = (state: AppState) => ({ nav: state.nav });
+const mapStateToProps = (state: RootState) => ({ nav: state.nav });
 const dispatchToProps = (dispatch: Dispatch<any>) => ({ dispatch });
 
 export default connect<RouterStateProps, RouterDispatchProps, RouterOwnProps>(mapStateToProps, dispatchToProps)(Router);

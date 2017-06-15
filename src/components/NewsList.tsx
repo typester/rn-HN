@@ -47,9 +47,7 @@ class NewsList extends React.Component<Props, State> {
     let payload = this.newsPayload();
     let nextPayload = this.newsPayload(nextProps);
 
-    console.log("receive props")
     if (JSON.stringify(payload.ids) != JSON.stringify(nextPayload.ids)) {
-      console.log("reset datasource", nextPayload.ids);
       this.setState({
         ds: this.state.ds.cloneWithRows(nextPayload.ids)
       });

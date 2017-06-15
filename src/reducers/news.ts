@@ -80,7 +80,10 @@ function newsIdsReducer(state: NewsIdsState, action: NewsAction) {
     case types.FETCH_NEWS_IDS_SUCCESS: {
       let payload = extractPayload(state, action.newsType)
       payload.isLoading = false;
-      payload.ids = (<NewsIdsAction>action).newsIds;
+      payload.ids = []
+      for (let i = 0; i < 20; i++) { /* limit for performance */
+        payload.ids.push((<NewsIdsAction>action).newsIds[i]);
+      }
       return applyPayload(state, action.newsType, payload)
     }
 
