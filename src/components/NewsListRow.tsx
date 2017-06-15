@@ -3,6 +3,7 @@ import {
   View,
   StyleSheet,
   Text,
+  ActivityIndicator,
 } from 'react-native';
 import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
@@ -40,14 +41,26 @@ class NewsListRow extends React.Component<Props, {}> {
 
     if (item) {
       return (
-        <View>
-          <Text>{ item.title }</Text>
+        <View style={styles.container}>
+          <Text style={styles.title}>{ item.title }</Text>
+          <View style={styles.meta}>
+            <View style={styles.metaPoint}>
+              <Text style={styles.metaText}>{item.score}points</Text>
+            </View>
+            <View style={styles.metaBy}>
+              <Text style={styles.metaText}>by: </Text><Text style={[styles.metaText, styles.textBold]}>{ item.by }</Text>
+            </View>
+            <View style={styles.metaDate}>
+              <Text style={styles.metaText}>{new Date(item.time*1000).toLocaleString('en-US')}</Text>
+            </View>
+          </View>
         </View>
       );
     } else {
       /* loading */
       return (
-        <View>
+        <View style={[styles.container, styles.spinnerContainer]}>
+          <ActivityIndicator style={styles.spinner}/>
         </View>
       );
     }
@@ -62,3 +75,53 @@ const dispatchToProps = (dispatch: Dispatch<any>) => ({
 });
 
 export default connect<StateProps, DispatchProps, OwnProps>(mapStateToProps, dispatchToProps)(NewsListRow);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    padding: 10,
+  },
+
+  spinnerContainer: {
+    justifyContent: 'center',
+  },
+
+  spinner: {
+    alignSelf: 'flex-start',
+  },
+
+  title: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+
+  meta: {
+    flexDirection: 'row',
+  },
+
+  metaText: {
+    fontSize: 11,
+    color: '#999',
+  },
+
+  textBold: {
+    fontWeight: 'bold',
+  },
+
+  metaPoint: {
+    marginRight: 5,
+  },
+
+  metaBy: {
+    flexDirection: 'row',
+  },
+
+  metaDate: {
+    flexGrow: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+});

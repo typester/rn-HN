@@ -10,6 +10,10 @@ import {
 
 export class Item {
   title: string;
+  by: string;
+  url: string;
+  score: number;
+  time: number;
 }
 
 export interface NewsState {
