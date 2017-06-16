@@ -1,19 +1,21 @@
 import React from 'react';
 import { WebView as WV } from 'react-native';
-import { NavigationProp } from 'react-navigation';
+import { NavigationScreenProp } from 'react-navigation';
 
 interface Props {
-  title: string;
-  url: string;
-  navigation?: NavigationProp<any, any>;
+  navigation?: NavigationScreenProp<any, any>;
 }
 
 export default class WebView extends React.Component<Props, {}> {
+  static navigationOptions = (p: any) => ({
+    title: p.navigation.state.params.item.title,
+  });
+
   render() {
-    const { url } = this.props.navigation.state.params;
+    const { item } = this.props.navigation.state.params;
 
     return (
-      <WV url={url}/>
+      <WV source={{uri: item.url}}/>
     );
   }
 }
