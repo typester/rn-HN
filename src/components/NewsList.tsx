@@ -5,7 +5,7 @@ import { Dispatch, Action } from 'redux';
 
 import { RootState } from '../reducers';
 import { NewsType, fetchNewsIds } from '../actions/news';
-import { NewsIdsState, NewsStatePayload } from '../reducers/news';
+import { NewsIdsState, NewsStatePayload, Item } from '../reducers/news';
 import NewsListRow from '../components/NewsListRow';
 
 interface StateProps {
@@ -18,6 +18,7 @@ interface DispatchProps {
 
 interface OwnProps {
   newsType: NewsType;
+  onPressNews: (item: Item) => void;
 }
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -70,7 +71,7 @@ class NewsList extends React.Component<Props, State> {
 
     if (payload.ids.length == 0) {
       return (
-        <View>
+        <View style={styles.spinnerContainer}>
           <ActivityIndicator/>
         </View>
       );
@@ -80,13 +81,13 @@ class NewsList extends React.Component<Props, State> {
       <ListView
         enableEmptySections
         dataSource={this.state.ds}
-        renderRow={(id) => <NewsListRow newsId={id} />} />
+        renderRow={(id) => <NewsListRow newsId={id} onPress={(item) => this.props.onPressNews(item) } />} />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  sninnerContainer: {
+  spinnerContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

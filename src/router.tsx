@@ -7,6 +7,7 @@ import {RootState} from './reducers';
 import TopStoriesScreen from './screens/TopStoriesScreen';
 import BestStoriesScreen from './screens/BestStoriesScreen';
 import NewStoriesScreen from './screens/NewStoriesScreen';
+import WebView from './components/WebView';
 
 export const MainTabStack = StackNavigator({
   MainTab: {
@@ -23,8 +24,14 @@ export const MainTabStack = StackNavigator({
     }, {
       tabBarComponent: TabBarBottom,
       tabBarPosition: 'bottom',
-      backBehavior: 'none',
+      lazy: true,
+      backBehavior: 'initialRoute',
+      initialRouteName: 'Top',
     }),
+  },
+
+  WebView: {
+    screen: WebView,
   },
 });
 

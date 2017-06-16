@@ -4,13 +4,15 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
+import { NavigationProp } from 'react-navigation';
 
 import { RootState } from '../reducers';
 import { NewsType, fetchNewsItem } from '../actions/news';
-import { NewsItemsState } from '../reducers/news';
+import { NewsItemsState, Item } from '../reducers/news';
 
 interface StateProps {
   items: NewsItemsState;
@@ -22,6 +24,7 @@ interface DispatchProps {
 
 interface OwnProps {
   newsId: number;
+  onPress: (item: Item) => void;
 }
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -38,10 +41,11 @@ class NewsListRow extends React.Component<Props, {}> {
 
   render() {
     const item = this.props.items.map.get(this.props.newsId);
+    const { onPress } = this.props;
 
     if (item) {
       return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={() => onPress(item)}>
           <Text style={styles.title}>{ item.title }</Text>
           <View style={styles.meta}>
             <View style={styles.metaPoint}>
@@ -54,7 +58,7 @@ class NewsListRow extends React.Component<Props, {}> {
               <Text style={styles.metaText}>{new Date(item.time*1000).toLocaleString('en-US')}</Text>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       );
     } else {
       /* loading */

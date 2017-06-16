@@ -11,7 +11,7 @@ export default function configureStore() {
   const store = createStore(
     rootReducer, {},
     compose(
-      applyMiddleware(thunkMiddleware),
+      applyMiddleware(thunkMiddleware, logger),
       autoRehydrate(),
     )
   );
