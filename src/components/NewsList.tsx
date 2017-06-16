@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListView, ListViewDataSource, Text, View } from 'react-native';
+import { ListView, ListViewDataSource, Text, View, ActivityIndicator, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Dispatch, Action } from 'redux';
 
@@ -66,6 +66,16 @@ class NewsList extends React.Component<Props, State> {
   }
 
   render() {
+    const payload = this.newsPayload();
+
+    if (payload.ids.length == 0) {
+      return (
+        <View>
+          <ActivityIndicator/>
+        </View>
+      );
+    }
+
     return (
       <ListView
         enableEmptySections
@@ -74,6 +84,14 @@ class NewsList extends React.Component<Props, State> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  sninnerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 const mapStateToProps = (state: RootState) => ({
   news: state.news.Ids,
