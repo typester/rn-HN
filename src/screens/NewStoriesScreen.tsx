@@ -29,6 +29,6 @@ export default class NewStoriesScreen extends React.Component<Prop, {}> {
   }
 
   onPressNews(item: Item) {
-    this.props.navigation.navigate("WebView", { url: item.url });
+    this.props.navigation.navigate("WebView", { item });
   }
 }
