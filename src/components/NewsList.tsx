@@ -72,7 +72,7 @@ class NewsList extends React.Component<Props, State> {
     if (payload.ids.length == 0) {
       return (
         <View style={styles.spinnerContainer}>
-          <ActivityIndicator/>
+          <ActivityIndicator style={styles.spinner}/>
         </View>
       );
     }
@@ -89,8 +89,11 @@ class NewsList extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   spinnerContainer: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  spinner: {
+    marginTop: 20,
   },
 });
 
