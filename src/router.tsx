@@ -1,5 +1,6 @@
 import React from 'react';
-import { StackNavigator, TabNavigator, TabBarBottom, addNavigationHelpers, NavigationState, NavigationAction } from 'react-navigation';
+import { BackHandler } from 'react-native';
+import { StackNavigator, TabNavigator, TabBarBottom, addNavigationHelpers, NavigationState, NavigationAction, NavigationScreenProp } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -59,13 +60,21 @@ interface RouterOwnProps {
 }
 
 class Router extends React.Component<RouterStateProps & RouterDispatchProps & RouterOwnProps, any> {
-  render() {
-    const navigation = addNavigationHelpers({
+  navigation: NavigationScreenProp<any, any>;
+
+  componentDidMount() {
+    this.navigation = addNavigationHelpers({
       dispatch: this.props.dispatch,
       state: this.props.nav,
     });
 
-    return <AppNavigator navigation={navigation} />
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.navigation.goBack() || BackHandler.exitApp();
+    });
+  }
+
+  render() {
+    return <AppNavigator navigation={this.navigation} />
   }
 }
 
